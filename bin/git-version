@@ -1,0 +1,27 @@
+#!/bin/sh -eux
+
+OUTPUT_FILE=${1:?"output file"}
+
+#the format %ci actually returns something like this: 2016-06-04 18:34:59 +1000
+#when correct ISO8601 would look more like: 2016-06-04T18:34:59+1000
+#so it needs to be corrected...
+ISO_SED='s@\(.*\) \(.*\) \(.*\)@\1T\2\3@g'
+
+ISO8601TIME="$(git log --pretty=format:%ci -n 1 | sed "${ISO_SED}")"
+
+# need GNU date for this:
+# brew update
+# brew install coreutils
+# mv /bin/date /bin/date.macosx
+# ln -sf /bin/gdate /bin/date
+#
+# #non-standard unix tools
+# yuck...
+#
+UTCTIME="$(TZ=UTC date +"%Y%m%d%H%M%S" --date "${ISO8601TIME}")"
+
+GITSHA="$(git log --pretty=format:%h -n 1)"
+
+VERSION="${UTCTIME}-${GITSHA}"
+
+echo "${VERSION}" > ${OUTPUT_FILE}

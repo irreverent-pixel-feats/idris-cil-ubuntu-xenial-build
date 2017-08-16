@@ -1,0 +1,15 @@
+#!/bin/sh -eux
+
+IDRIS_VERSION="1.1.1"
+REPO="irreverentpixelfeats/idris-cil-build"
+BASE_TAG="ubuntu_xenial_${IDRIS_VERSION}"
+
+bin/ci.branches
+
+if [ "${TRAVIS_BRANCH}" = 'master' ]; then
+  docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+
+  for tag in "${BASE_TAG}" "${BASE_TAG}-$(cat data/version)"; do
+    docker push "${REPO}:${tag}"
+  done
+fi
