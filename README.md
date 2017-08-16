@@ -11,7 +11,7 @@ Includes:
 
 Along for the ride:
 
-- `idris 1.1.1`
+- `idris 1.0`
 - `ghc v8.0.2`
 - `cabal 1.24.0.2`
 - [`ambiata/mafia`](https://github.com/ambiata/mafia)
