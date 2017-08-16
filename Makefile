@@ -1,4 +1,4 @@
-IDRIS_VERSION = 1.1.1
+IDRIS_VERSION = 1.0
 PWD = $(shell pwd)
 REPO = irreverentpixelfeats/idris-cil-build
 BASE_TAG = ubuntu_xenial_${IDRIS_VERSION}
