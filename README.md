@@ -8,6 +8,7 @@ Built images are available on [DockerHub](https://hub.docker.com/r/irreverentpix
 Includes:
 
 - [`bamboo/idris-cil`](https://github.com/bamboo/idris-cil), commit SHA [`00e977f`](https://github.com/bamboo/idris-cil/commit/00e977f7619041c6fa4b927d3ca0fd0ab397d9af)
+- `mono-devel 5.2.0.215-0xamarin10+ubuntu1604b1`
 
 Along for the ride:
 
