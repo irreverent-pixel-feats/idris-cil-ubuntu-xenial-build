@@ -10,9 +10,9 @@ git-sha:
 
 deps: git-sha
 
-# docker build --cache-from "${REPO}:${BASE_TAG}" --tag "${REPO}:${BASE_TAG}" --tag "${REPO}:${BASE_TAG}-$(shell cat data/version)" .
 build: deps Dockerfile
-	docker build --tag "${REPO}:${BASE_TAG}" --tag "${REPO}:${BASE_TAG}-$(shell cat data/version)" .
+	docker pull "${REPO}:${BASE_TAG}" || true
+	docker build --cache-from "${REPO}:${BASE_TAG}" --tag "${REPO}:${BASE_TAG}" --tag "${REPO}:${BASE_TAG}-$(shell cat data/version)" .
 
 images/idris-cil-build-${BASE_TAG}.tar.gz: build
 	docker image save -o "images/idris-cil-build-${BASE_TAG}.tar" "${REPO}:${BASE_TAG}"
