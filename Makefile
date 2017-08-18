@@ -20,4 +20,16 @@ images/idris-cil-build-${BASE_TAG}.tar.gz: build
 
 image: images/idris-cil-build-${BASE_TAG}.tar.gz
 
+# The hashes calculated for ADD and COPY content seem to be different
+# on different platforms, so the "${REPO}:${BASE_TAG}" image
+# doesnt serve as a useful cache on some local dev machines
+local-cache:
+	docker pull "${REPO}:${BASE_TAG}" || true
+	docker build --cache-from "${REPO}:${BASE_TAG}" --tag "${REPO}:local_cache" .
+	docker image save -o "images/local-cache.tar" "${REPO}:local_cache"
+	cd images && gzip -v "local-cache.tar"
+
+quick:
+	docker build --cache-from "${REPO}:local_cache" .
+
 all: build image

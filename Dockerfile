@@ -52,6 +52,13 @@ RUN cd /opt \
   && cabal install -j \
   && ln -sf /opt/idris-cil/.cabal-sandbox/bin/idris-codegen-cil /usr/local/bin
 
+# Mono
+# http://www.mono-project.com/download/#download-lin
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF \
+  && (echo "deb http://download.mono-project.com/repo/ubuntu xenial main" | tee /etc/apt/sources.list.d/mono-official.list) \
+  && apt-get update \
+  && apt-get install -y mono-devel=5.2.0.215-0xamarin10+ubuntu1604b1
+
 # stuff in the data dir is likely to change very frequently but doesnt actually affect the image much itself,
 # example: version SHAs
 # So adding it last should speed up the builds
