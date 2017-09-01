@@ -50,7 +50,10 @@ RUN cd /opt \
   && cd /opt/idris-cil \
   && cabal configure \
   && cabal install -j \
-  && ln -sf /opt/idris-cil/.cabal-sandbox/bin/idris-codegen-cil /usr/local/bin
+  && ln -sf /opt/idris-cil/.cabal-sandbox/bin/idris-codegen-cil /usr/local/bin \
+# Install the idris CIL FFI
+  && cd /opt/idris-cil/rts \
+  && idris --install cil.ipkg
 
 # Mono
 # http://www.mono-project.com/download/#download-lin
